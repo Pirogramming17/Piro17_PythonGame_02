@@ -1,7 +1,7 @@
 import random
 
 
-
+def
 
 question_list = ["연애를 안해본 사람 접어", "오늘 점심 먹은 사람 접어", " 최근에 코딩 공부 한적 있다 접어",
  " 지금 졸리다 접어","나는 통학한다 접어","안경낀 사람 접어","외로운 사람 접어", " 배고픈 사람 접어","아이폰쓰는 사람 접어","운동화 신고 있다 접어",
@@ -38,12 +38,13 @@ while(True):
             else:
                 pass
                 ans = input("Y와 N중에 골라주세요: ")
-            for j in self.other_choice_list:
+            for j in self.player_object_list[1:]:
                 com_ans = random.choice(com_ans_list)
                 if com_ans == "Y":
                     player_finger[j] -= 1
+                    print(" %c 님은 'Y' 을 고르셨습니다." %(self[j].name))
                 else:
-                    pass
+                    print(" %c 님은 'N' 을 고르셨습니다." %(self[j].name))
             for k in player_finger:
                 print(self[k].name+"의 목숨은 %d개!" %player_finger[k])
                 if player_finger[k] == 0:
@@ -57,12 +58,13 @@ while(True):
                 player_finger[i] -= 1
             else:
                 pass
-            for j in self.other_choice_list:
+            for j in self.player_object_list[1:]:
                 com_ans = random.choice(com_ans_list)
                 if com_ans == "Y":
                     player_finger[j] -= 1
+                    print(" %c 님은 'Y' 을 고르셨습니다." %(self[j].name))
                 else:
-                    pass
+                    print(" %c 님은 'N' 을 고르셨습니다." %(self[j].name))
             for k in player_finger:
                 if player_finger[k] == 0:
                     loser_li.append(self[k])
