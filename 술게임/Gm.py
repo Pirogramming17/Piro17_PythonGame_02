@@ -1,4 +1,5 @@
 from subwayGame import subwayGame
+from updownGame import updownGame
 from User import User
 import random
 
@@ -46,16 +47,18 @@ class GameManager:
 
         while True:
             try:
-                my_amount = int(input("🍺 당신의 치사량(주량)은 얼마만큼인가요?(1~5을 선택해주세요) : "))
+                my_amount = int(
+                    input("🍺 당신의 치사량(주량)은 얼마만큼인가요?(1~5을 선택해주세요) : "))
                 if 1 <= my_amount <= 5:
                     break
                 else:
                     raise()
             except:
                 print()
-                print("<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
+                print(
+                    "<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
                 print()
-        
+
         my_amount = 2 * my_amount
         me = User(my_name, my_amount, 0)
         self.player_object_list.append(me)
@@ -71,7 +74,8 @@ class GameManager:
                     raise()
             except:
                 print()
-                print("<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
+                print(
+                    "<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
                 print()
         other_choice_list = random.sample(self.other_name_list, other_num)
         for i in range(other_num):
@@ -79,18 +83,20 @@ class GameManager:
             other_name = other_choice_list[i]
             other = User(other_name, other_amount, 0)
             self.player_object_list.append(other)
-            print("오늘 함께 취할 친구는 {}입니다! (치사량 : {})".format(other_name, other_amount))
+            print("오늘 함께 취할 친구는 {}입니다! (치사량 : {})".format(
+                other_name, other_amount))
 
     def printGame(self):
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~  🍺 오늘의 Alcohol Game 🍺  ~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print(
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~  🍺 오늘의 Alcohol Game 🍺  ~~~~~~~~~~~~~~~~~~~~~~~~~~")
         print("                            🍺 1. 지하철게임")
         print("                            🍺 2. 술뚜껑 게임")
         print("                            🍺 3. 손병호")
         print("                            🍺 4. 아파트 게임")
         print("                            🍺 5. 더 게임 오브 데스")
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    
+
     def printResult(self):
         for i in self.player_object_list:
             print("{}(은)는 지금까지 {}🍺! 치사량까지 {}".format(
@@ -99,28 +105,33 @@ class GameManager:
                 self.finish = True
         if self.finish:
             print("{}(이)가 전사했습니다... 꿈나라에서는 편히 쉬시길..zzz")
-            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            print(
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             print("                   🍺 다음에 술마시면 또 불러주세요~ 안녕! 🍺                   ")
-            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            print(
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             exit()
-    
+
     def selectGameNumber(self, user):
         while True:
             if user.name == self.player_object_list[0].name:
                 game_choice = int(input("🍺 {}(이)가 좋아하는 랜덤 게임~ 랜덤 게임~ 무슨 게임? : ".format(
                     user.name)))
             else:
-                continue_key = input("🍺 술게임 진행중! 다른 사람의 턴입니다. 그만하고 싶으면 'exit'를, 계속하시려면 아무키나 입력해주세요! : ")
+                continue_key = input(
+                    "🍺 술게임 진행중! 다른 사람의 턴입니다. 그만하고 싶으면 'exit'를, 계속하시려면 아무키나 입력해주세요! : ")
                 if continue_key == "exit":
                     exit()
                 game_choice = random.randint(1, 5)
-                print("🍺 {}(이)가 좋아하는 랜덤 게임~ 랜덤 게임~ 무슨 게임? : {}".format(user.name, game_choice))
+                print("🍺 {}(이)가 좋아하는 랜덤 게임~ 랜덤 게임~ 무슨 게임? : {}".format(
+                    user.name, game_choice))
 
             if game_choice > 5 or game_choice < 1:
-                print("<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
+                print(
+                    "<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
             else:
                 return game_choice
-    
+
     def drinking(self, user):
         for i in self.player_object_list:
             if i.name == user.name:
@@ -131,15 +142,15 @@ class GameManager:
         if num == 1:
             game1 = subwayGame(self.player_object_list, userName)
             self.drinking(game1.run())
-        
+
         elif num == 2:
-            self.game2()
+            self.drinking(updownGame(self.player_object_list, userName))
 
         elif num == 3:
             self.game3()
-        
+
         elif num == 3:
             self.game4()
-        
+
         else:
             self.game5()
