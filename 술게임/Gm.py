@@ -1,4 +1,4 @@
-import time
+from subwayGame import subwayGame
 from User import User
 import random
 
@@ -16,7 +16,7 @@ class GameManager:
         self.printGame()
         while True:
             for user in self.player_object_list:
-                self.chooseGame(self.selectGameNumber(user), user)
+                self.chooseGame(self.selectGameNumber(user), user.name)
                 self.printResult()
                 self.printGame()
 
@@ -46,18 +46,16 @@ class GameManager:
 
         while True:
             try:
-                my_amount = int(
-                    input("🍺 당신의 치사량(주량)은 얼마만큼인가요?(1~5을 선택해주세요) : "))
+                my_amount = int(input("🍺 당신의 치사량(주량)은 얼마만큼인가요?(1~5을 선택해주세요) : "))
                 if 1 <= my_amount <= 5:
                     break
                 else:
                     raise()
             except:
                 print()
-                print(
-                    "<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
+                print("<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
                 print()
-
+        
         my_amount = 2 * my_amount
         me = User(my_name, my_amount, 0)
         self.player_object_list.append(me)
@@ -73,8 +71,7 @@ class GameManager:
                     raise()
             except:
                 print()
-                print(
-                    "<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
+                print("<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
                 print()
         other_choice_list = random.sample(self.other_name_list, other_num)
         for i in range(other_num):
@@ -82,20 +79,18 @@ class GameManager:
             other_name = other_choice_list[i]
             other = User(other_name, other_amount, 0)
             self.player_object_list.append(other)
-            print("오늘 함께 취할 친구는 {}입니다! (치사량 : {})".format(
-                other_name, other_amount))
+            print("오늘 함께 취할 친구는 {}입니다! (치사량 : {})".format(other_name, other_amount))
 
     def printGame(self):
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        print(
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~  🍺 오늘의 Alcohol Game 🍺  ~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        print("                            🍺 1. 게임1")
-        print("                            🍺 2. 게임2")
-        print("                            🍺 3. 게임3")
-        print("                            🍺 4. 게임4")
-        print("                            🍺 5. 게임5")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~  🍺 오늘의 Alcohol Game 🍺  ~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("                            🍺 1. 지하철게임")
+        print("                            🍺 2. 술뚜껑 게임")
+        print("                            🍺 3. 손병호")
+        print("                            🍺 4. 아파트 게임")
+        print("                            🍺 5. 더 게임 오브 데스")
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
+    
     def printResult(self):
         for i in self.player_object_list:
             print("{}(은)는 지금까지 {}🍺! 치사량까지 {}".format(
@@ -104,124 +99,47 @@ class GameManager:
                 self.finish = True
         if self.finish:
             print("{}(이)가 전사했습니다... 꿈나라에서는 편히 쉬시길..zzz")
-            print(
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             print("                   🍺 다음에 술마시면 또 불러주세요~ 안녕! 🍺                   ")
-            print(
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             exit()
-
+    
     def selectGameNumber(self, user):
         while True:
             if user.name == self.player_object_list[0].name:
                 game_choice = int(input("🍺 {}(이)가 좋아하는 랜덤 게임~ 랜덤 게임~ 무슨 게임? : ".format(
                     user.name)))
             else:
-                continue_key = input(
-                    "🍺 술게임 진행중! 다른 사람의 턴입니다. 그만하고 싶으면 'exit'를, 계속하시려면 아무키나 입력해주세요! : ")
+                continue_key = input("🍺 술게임 진행중! 다른 사람의 턴입니다. 그만하고 싶으면 'exit'를, 계속하시려면 아무키나 입력해주세요! : ")
                 if continue_key == "exit":
                     exit()
                 game_choice = random.randint(1, 5)
-                print("🍺 {}(이)가 좋아하는 랜덤 게임~ 랜덤 게임~ 무슨 게임? : {}".format(
-                    user.name, game_choice))
+                print("🍺 {}(이)가 좋아하는 랜덤 게임~ 랜덤 게임~ 무슨 게임? : {}".format(user.name, game_choice))
 
             if game_choice > 5 or game_choice < 1:
-                print(
-                    "<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
+                print("<<<<<<<<<<<<<<<<<<<<<<<<<  보기를 다시 선택해주세요!  >>>>>>>>>>>>>>>>>>>>>>>>>")
             else:
                 return game_choice
+    
+    def drinking(self, user):
+        for i in self.player_object_list:
+            if i.name == user.name:
+                user.now += 1
+                user.left = user.amount - user.now
 
-    def chooseGame(self, num, user):
+    def chooseGame(self, num, userName):
         if num == 1:
-            self.game1()
-
+            game1 = subwayGame(self.player_object_list, userName)
+            self.drinking(game1.run())
+        
         elif num == 2:
-            self.game2(user)
+            self.game2()
 
         elif num == 3:
             self.game3()
-
+        
         elif num == 3:
             self.game4()
-
+        
         else:
             self.game5()
-
-    def game1(self):
-        return
-
-    def game2(self, user):
-        print("""
-========================================================================================
- _   _ ______         ______  _____  _    _  _   _          _____   ___  ___  ___ _____
-| | | || ___ \  ___   |  _  \|  _  || |  | || \ | |        |  __ \ / _ \ |  \/  ||  ___|
-| | | || |_/ / ( _ )  | | | || | | || |  | ||  \| | ______ | |  \// /_\ \| .  . || |__
-| | | ||  __/  / _ \/\| | | || | | || |/\| || . ` ||______|| | __ |  _  || |\/| ||  __|
-| |_| || |    | (_>  <| |/ / \ \_/ /\  /\  /| |\  |        | |_\ \| | | || |  | || |___
- \___/ \_|     \___/\/|___/   \___/  \/  \/ \_| \_/         \____/\_| |_/\_|  |_/\____/
-========================================================================================
-              """)
-        print("소주 뚜껑🤯 에 적혀있는 숫자를 맞춰라~! 숫자는 1️⃣ 에서 5️⃣ 0️⃣ 사이~!")
-
-        print("---🟢🟢🟢🟢🟢---")
-        print("--🟢🟢🟢🟢🟢🟢---")
-        print("-🟢🟢❓🟢❓🟢🟢--")
-        print("--🟢🟢🟢🟢🟢🟢--")
-        print("---🟢🟢🟢🟢🟢---")
-        ans_num = random.randint(1, 50)
-        player_length = len(self.player_object_list)
-        loser_list = []
-        player_choice = ""
-
-        now_turn = self.player_object_list.index(user)
-        start = 1
-        end = 50
-
-        while(1):
-            if now_turn % player_length == 0:
-                while(1):
-                    if start == end:
-                        print("남은 숫자가 단 한 개❓❗️")
-
-                    player_choice = input("▶ 한 가지 숫자를 선택하시오 : ")
-                    player_choice = int(player_choice)
-                    if(player_choice < start or player_choice > end):
-                        print("\n아니 아까 그 범위 아니었잖아🤦‍♀️🤦🤦‍♂️~~~!! 바보 샷🍺🤢!")
-                        loser_list.append(user)
-                        return loser_list
-                    else:
-                        break
-            else:
-                player_choice = random.randint(start, end)
-                print("{}은 {}을 선택했습니다.".format(
-                    self.player_object_list[now_turn % player_length].name, player_choice))
-
-            if player_choice == ans_num:
-                print("\n********************************************")
-                print("(」゜ロ゜)」 이럴수가... 정답은 {}❗️❗️❗️❗️❗️❗️ щ(゜ロ゜щ)".format(ans_num))
-                print("{}빼고 한 잔 해🍺~".format(
-                    self.player_object_list[now_turn % player_length].name))
-                print("마셔라 마셔라🎶 술🍺이 들어간다 쭊 쭊쭊쭊쭊🎸🎶")
-                print("********************************************\n")
-
-                for i in range(player_length):
-                    if i != now_turn % player_length:
-                        loser_list.append(self.player_object_list[i])
-                return loser_list
-            elif player_choice < ans_num:
-                print("UP🔺\n")
-                start = player_choice + 1
-                now_turn += 1
-            elif player_choice > ans_num:
-                print("DOWN🔻\n")
-                end = player_choice - 1
-                now_turn += 1
-
-    def game3(self):
-        return
-
-    def game4(self):
-        return
-
-    def game5(self):
-        return
