@@ -182,15 +182,15 @@ class GameManager:
                 while(1):
                     if start == end:
                         print("남은 숫자가 단 한 개❓❗️")
+
+                    player_choice = input("▶ 한 가지 숫자를 선택하시오 : ")
+                    player_choice = int(player_choice)
+                    if(player_choice < start or player_choice > end):
+                        print("\n아니 아까 그 범위 아니었잖아🤦‍♀️🤦🤦‍♂️~~~!! 바보 샷🍺🤢!")
+                        loser_list.append(user)
+                        return loser_list
                     else:
-                        player_choice = input("▶ 한 가지 숫자를 선택하시오 : ")
-                        player_choice = int(player_choice)
-                        if(player_choice < start or player_choice > end):
-                            print("\n아니 아까 그 범위 아니었잖아🤦‍♀️🤦🤦‍♂️~~~!! 바보 샷🍺🤢!")
-                            loser_list.append(user)
-                            return loser_list
-                        else:
-                            break
+                        break
             else:
                 player_choice = random.randint(start, end)
                 print("{}은 {}을 선택했습니다.".format(
