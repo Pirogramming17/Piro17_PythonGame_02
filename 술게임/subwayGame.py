@@ -1,9 +1,8 @@
 from bs4 import BeautifulSoup as bs
-from pprint import pprint
 import random
 import requests
-
-
+import warnings
+warnings.filterwarnings('ignore')
 
 class subwayGame:
     def __init__(self, player_list, selector) -> None:
@@ -12,7 +11,7 @@ class subwayGame:
         self.selector = selector
         self.storestation = []
 
-    def run(self):
+    def run(self) -> None:
         self.collectStations()
         print("지하철~ 지하철 지하철 지하철")
         if self.player_list[0].name == self.selector:
@@ -46,8 +45,7 @@ class subwayGame:
                     print("********************************************\n")
                     return player
                 
-
-    def collectStations(self):
+    def collectStations(self) -> None:
         for i in range(1, 10):
             url = "http://openapi.seoul.go.kr:8088/4972485a4b61727538335863426167/xml/SearchSTNBySubwayLineInfo/1/150/%20/%20/{}%ED%98%B8%EC%84%A0".format(i)
             req = requests.get(url)

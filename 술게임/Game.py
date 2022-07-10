@@ -4,5 +4,5 @@ class Game:
     def __init__(self) -> None:
         self.game = GameManager()
 
-game = Game()
-game.game.play()
+console = Game()
+console.game.play()
