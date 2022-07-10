@@ -132,11 +132,15 @@ class GameManager:
             else:
                 return game_choice
 
-    def drinking(self, user):
-        for i in self.player_object_list:
-            if i.name == user.name:
-                user.now += 1
-                user.left = user.amount - user.now
+    def drinking(self, user_list):
+        for player in self.player_object_list:
+            for loser in user_list:
+                if player.name == loser.name:
+                    player.now += 1
+                    player.left = player.amount - player.now
+            # if i.name == user.name:
+            #     user.now += 1
+            #     user.left = user.amount - user.now
 
     def chooseGame(self, num, userName):
         if num == 1:
