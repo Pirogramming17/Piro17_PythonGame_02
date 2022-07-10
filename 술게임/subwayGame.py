@@ -30,7 +30,7 @@ class subwayGame:
             lineNum = int(input("몇 호선~❓❗️ 몇 호선~❓❗️: "))
         else:
             lineNum = random.randint(1, 9)
-            print("{} 호선 /\ {} 호선 /\~❗️ {} 호선 /\ {} 호선 /\~❗️".format(lineNum))
+            print("{} 호선 /\ {} 호선 /\~❗️ {} 호선 /\ {} 호선 /\~❗️".format(*lineNum))
 
         while True:
             for player in self.player_list:

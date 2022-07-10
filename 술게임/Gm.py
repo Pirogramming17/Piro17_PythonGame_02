@@ -1,6 +1,9 @@
 from subwayGame import subwayGame
 from updownGame import updownGame
+from son import sonGame
 from User import User
+from apartment2 import aptGame
+from TheGameOfDeath import thegameofdeathGame
 import random
 
 
@@ -103,8 +106,9 @@ class GameManager:
                 i.name, i.now, i.left))
             if i.left == 0:
                 self.finish = True
+                die_name = i.name
         if self.finish:
-            print("{}(이)가 전사했습니다... 꿈나라에서는 편히 쉬시길..zzz")
+            print("{}(이)가 전사했습니다... 꿈나라에서는 편히 쉬시길..zzz".format(die_name))
             print(
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             print("                   🍺 다음에 술마시면 또 불러주세요~ 안녕! 🍺                   ")
@@ -148,10 +152,10 @@ class GameManager:
             self.drinking(updownGame(self.player_object_list, userName))
 
         elif num == 3:
-            self.game3()
+            self.drinking(sonGame(self, userName))
 
-        elif num == 3:
-            self.game4()
-
+        elif num == 4:
+            game4 = aptGame(self.player_object_list, userName)
+            self.drinking(game4.play_aptGame())
         else:
-            self.game5()
+            self.drinking(thegameofdeathGame(self, userName))
