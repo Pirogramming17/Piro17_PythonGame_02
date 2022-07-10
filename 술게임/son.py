@@ -11,10 +11,7 @@ com_ans_list =["Y","N"]
 player_finger = []
 loser_li =[]
 player_length = len(self.player_object_list)
-computer_length = len(self.other_choice_list)
-
-
-
+computer = self.player_object_list[1:]
 
 for i in range(player_length):
     if self[i].name == userName:
@@ -38,7 +35,7 @@ while(True):
             else:
                 pass
                 ans = input("Y와 N중에 골라주세요: ")
-            for j in self.player_object_list[1:]:
+            for j in computer:
                 com_ans = random.choice(com_ans_list)
                 if com_ans == "Y":
                     player_finger[j] -= 1
@@ -58,7 +55,7 @@ while(True):
                 player_finger[i] -= 1
             else:
                 pass
-            for j in self.player_object_list[1:]:
+            for j in computer:
                 com_ans = random.choice(com_ans_list)
                 if com_ans == "Y":
                     player_finger[j] -= 1
