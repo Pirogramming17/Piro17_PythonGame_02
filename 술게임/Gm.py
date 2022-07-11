@@ -5,6 +5,7 @@ from User import User
 from apartment2 import aptGame
 from TheGameOfDeath import thegameofdeathGame
 import random
+import time
 
 
 class GameManager:
@@ -108,7 +109,7 @@ class GameManager:
                 self.finish = True
                 die_name = i.name
         if self.finish:
-            print("{}(이)가 전사했습니다... 꿈나라에서는 편히 쉬시길..zzz".format(die_name))
+            print("{}(이)가 전사했습니다...🤢 꿈나라에서🛌는 편히 쉬시길..💤".format(die_name))
             print(
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             print("                   🍺 다음에 술마시면 또 불러주세요~ 안녕! 🍺                   ")
@@ -129,6 +130,7 @@ class GameManager:
                 game_choice = random.randint(1, 5)
                 print("🍺 {}(이)가 좋아하는 랜덤 게임~ 랜덤 게임~ 무슨 게임? : {}".format(
                     user.name, game_choice))
+                time.sleep(1)
 
             if game_choice > 5 or game_choice < 1:
                 print(

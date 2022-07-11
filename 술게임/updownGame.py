@@ -1,4 +1,5 @@
 import random
+import time
 
 
 def updownGame(self, userName):
@@ -48,6 +49,7 @@ _   _ ______         ______  _____  _    _  _   _          _____   ___  ___  ___
                     break
         else:
             player_choice = random.randint(start, end)
+            time.sleep(0.3)
             print("{}은 {}을 선택했습니다.".format(
                 self[idx % player_length].name, player_choice))
 
